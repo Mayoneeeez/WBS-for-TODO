@@ -2,6 +2,9 @@ function myFunction() {
   Logger.log("Hello Mayoneeeez");
 }
 
+//TODO
+//選択せずに予定線入力を押したときtrycatchで選択されていない場合exception出したい
+//成功メッセージを出したい
 function scheduleLine() {
 
   // 現在見ているスプレッドシートを取得する
@@ -10,7 +13,6 @@ function scheduleLine() {
   const currentSheetName = currentSheet.getName();
 
   //選択されているセルの行・列の位置を取得
-  //TODO trycatchで選択されていない場合exception出したい
   const selectedCell = currentSheet.getActiveCell();
   const selectedRow = selectedCell.getRow();
   const selectedColumn = selectedCell.getColumn();
@@ -31,21 +33,27 @@ function scheduleLine() {
 
   for(let col = 0; col < values.length; col++){
     const cellValue = values[col];
-    Logger.log(cellValue.getDate());
-    Logger.log(scheduledStartDate.getDate());
-    Logger.log(cellValue == scheduledStartDate);
+    // Logger.log(cellValue);
+    // Logger.log(scheduledStartDate);
+    // Logger.log(typeof cellValue);
+    // Logger.log(typeof scheduledStartDate);
+    // Logger.log(String(cellValue) == scheduledStartDate);
     // Logger.log(Utilities.formatDate(cellValue, timeZone, 'yyyy-MM-dd'));
     // Logger.log(Utilities.formatDate(scheduledStartDate, timeZone, 'yyyy-MM-dd'));
 
-    if(cellValue == scheduledStartDate){
+    if(String(cellValue) == scheduledStartDate){
       matchingCells.push({ row: selectedRow, col: col + 1 });
     }
 
-    if(cellValue == scheduledEndDate){
+    if(String(cellValue) == scheduledEndDate){
       matchingCells.push({ row: selectedRow, col: col + 1 });
     }
   }
 
+  for(let col = matchingCells[0].col; col < matchingCells[1].col; col++){
+  const selectedRow = selectedCell.getRow();
+    currentSheet.getRange(selectedRow, col).setBackground('Blue');
+  }
 
   //デバッグ用
   // Browser.msgBox("セルの選択位置","行："+selectedRow+ "、列："+selectedColumn, Browser.Buttons.OK);
@@ -59,4 +67,5 @@ function scheduleLine() {
   Logger.log(selectedColumn);
   Logger.log(values);
   Logger.log(matchingCells);
+  Logger.log(matchingCells[0].row);
 }
