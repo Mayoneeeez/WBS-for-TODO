@@ -11,7 +11,8 @@ const actualLineColor = 'Orange';
 //共通要素はどこかで管理したい
 function scheduleLine() {
 
- // 現在見ているスプレッドシートを取得する
+ try{
+  // 現在見ているスプレッドシートを取得する
   const currentSheet = SpreadsheetApp.getActiveSheet();
   // シート名を取得する
   const currentSheetName = currentSheet.getName();
@@ -37,6 +38,20 @@ function scheduleLine() {
       }
     }
   }
+  
+  //エラーハンドリング
+  //タスクの行範囲外判定
+  let target = [1, 2, 3, 4, 5]; 
+  if(rowList.some(value => target.includes(value))) {
+    throw new Error("予定線を挿入したいタスク番号を1つ以上選択してからボタンを押してください。")
+  }
+
+  //タスクの列範囲外判定
+  target = [1];
+  if((columnList.filter(value => !target.includes(value))).length > 0){
+    throw new Error("予定線を挿入したいタスク番号を1つ以上選択してからボタンを押してください。")
+  }
+
 
   for(let i = 0; i < rowList.length; i++){
     let selectedRow = rowList[i];
@@ -77,12 +92,17 @@ function scheduleLine() {
       currentSheet.getRange(selectedRow, col).setBackground(scheduleLineColor);
     }
   }
+ }catch(e){
+  Browser.msgBox(e.message);
+ }
+ 
 }
 
 
 
 function actualLine() {
 
+  try{
   // 現在見ているスプレッドシートを取得する
   const currentSheet = SpreadsheetApp.getActiveSheet();
   // シート名を取得する
@@ -109,6 +129,20 @@ function actualLine() {
       }
     }
   }
+  
+  //エラーハンドリング
+  //タスクの行範囲外判定
+  let target = [1, 2, 3, 4, 5]; 
+  if(rowList.some(value => target.includes(value))) {
+    throw new Error("予定線を挿入したいタスク番号を1つ以上選択してからボタンを押してください。")
+  }
+
+  //タスクの列範囲外判定
+  target = [1];
+  if((columnList.filter(value => !target.includes(value))).length > 0){
+    throw new Error("予定線を挿入したいタスク番号を1つ以上選択してからボタンを押してください。")
+  }
+
 
   for(let i = 0; i < rowList.length; i++){
     let selectedRow = rowList[i];
@@ -145,9 +179,12 @@ function actualLine() {
     }
 
     for(let col = matchingCells[0].col; col <= matchingCells[1].col; col++){
-      //選択した実績線行に色を付ける
+      //選択した予定線行に色を付ける
       currentSheet.getRange(selectedRow + 1, col).setBackground(actualLineColor);
     }
   }
+ }catch(e){
+  Browser.msgBox(e.message);
+ }
 }
 
