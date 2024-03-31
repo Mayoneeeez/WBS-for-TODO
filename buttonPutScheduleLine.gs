@@ -59,8 +59,8 @@ function putScheduleLine() {
     }
 
     //選択した予定開始日/終了日を取得
-    const scheduledStartDate = currentSheet.getRange('N' + selectedRow).getValue();
-    const scheduledEndDate = currentSheet.getRange('O' + selectedRow).getValue();
+    const scheduledStartDate = currentSheet.getRange('L' + selectedRow).getValue();
+    const scheduledEndDate = currentSheet.getRange('M' + selectedRow).getValue();
 
     // シートのデータ範囲を取得
     const dataRange = currentSheet.getDataRange();
