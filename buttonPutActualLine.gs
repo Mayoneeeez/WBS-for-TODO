@@ -1,7 +1,10 @@
-const actualLineColor = 'Orange';
+//概要
+//実績線の挿入ボタン機能
+
+const actualLineColor = "#f7b977";
 const actualLineResultMessage = "実績線挿入に成功しました。"
 
-function actualLine() {
+function putActualLine() {
 
   try{
   // 現在見ているスプレッドシートを取得する

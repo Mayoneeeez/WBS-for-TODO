@@ -1,9 +1,12 @@
-const scheduleLineColor = 'Blue';
+//概要
+//予定線の挿入ボタン機能
+
+const scheduleLineColor = "#a0d8ef";
 const scheduleLineResultMessage = "予定線挿入に成功しました。"
 
 //TODO
 //共通要素はどこかで管理したい
-function scheduleLine() {
+function putScheduleLine() {
 
  try{
   // 現在見ているスプレッドシートを取得する
